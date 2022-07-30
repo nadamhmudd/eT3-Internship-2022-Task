@@ -1,0 +1,82 @@
+﻿@model CoffeeShopSystem.Models.Entities.Order
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Order Details</h1>
+<hr />
+
+<div class="container">
+    <div class="card">
+        <div class="card-header bg-dark text-light ml-0">
+            <div class="row container">
+                <div class="col-12 d-none d-md-block col-md-6 pb-1">
+                    <i class="fas fa-shopping-cart"></i> &nbsp; Order Summary
+                </div>
+                <div class="col-12 col-md-4 offset-md-2 text-right">
+                    <a asp-action="Index" class="btn btn-outline-light form-control btn-sm">Back to Orders</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="container rounded p-2">
+                <div class="row">
+                    <div class="col-12 col-lg-6 pb-4">
+                        <div class="row my-1">
+                            <div class="col-3">Order Status</div>
+                            <div class="col-9">
+                                <input asp-for="OrderStatus" type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-3">Order Date</div>
+                            <div class="col-9">
+                                <input asp-for="OrderDate" type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row my-1">
+                            <div class="col-3">Cashier</div>
+                            <div class="col-9">
+                                <input asp-for="Cashier.FullName" type="text" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-5 offset-lg-1">
+                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="text-primary">Order Summary</span>
+                        </h4>
+ 
+                        <ul class="list-group mb-3">
+                            @foreach (var item in Model.OrderItems)
+                            {
+                                <li class="list-group-item d-flex justify-content-between p-2">
+                                    <div class="row container">
+                                        <div class="col-8">
+                                            <h6 class="my-0 text-primary">@item.Product.Name</h6>
+                                            <small class="text-muted">Price : EGB @item.Price.ToString("N")</small><br />
+                                            <small class="text-muted">Quantity : @item.Quantity</small>
+                                        </div>
+                                        <div class="col-4 text-end">
+                                            <p class="text-success">EGB @((item.Price * item.Quantity).ToString("N"))</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                            <li class="list-group-item bg-info">
+                                <div class="row container">
+                                    <div class="col-6">
+                                        <h5 class="text-white">TOTAL </h5>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <h5 class="text-white">EGB @Model.OrderTotal.ToString("N")</h5>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
